@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agape Styling — Frizerski salon na Čuburi</title>
+<meta name="description" content="Agape Styling — frizerski salon sa dugom tradicijom na Čuburi/Vračaru. Šišanje, bojenje, nega kose i svečane frizure, uz pažnju koja traje generacijama.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --noir: #09333C;
+    --noir-soft: #1D4750;
+    --cream: #F6F1E7;
+    --cream-soft: #ECE3D2;
+    --ink: #2A2521;
+    --ink-muted: #6B5F53;
+    --gold: #B6863C;
+    --gold-text: #8C6526;
+    --gold-light: #D8B679;
+    --line: rgba(9,51,60,0.14);
+    --line-on-dark: rgba(246,241,231,0.18);
+
+    --font-display: 'Fraunces', serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+
+    --maxw: 1180px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  }
+
+  body{
+    margin:0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img,svg{ display:block; max-width:100%; }
+  a{ color: inherit; text-decoration: none; }
+  ul{ margin:0; padding:0; list-style:none; }
+  h1,h2,h3,p{ margin:0; }
+
+  .wrap{ max-width: var(--maxw); margin:0 auto; padding: 0 28px; }
+
+  :focus-visible{ outline: 2px solid var(--gold-text); outline-offset: 3px; }
+
+  .eyebrow{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom: 18px;
+  }
+  .eyebrow .knot{ width:34px; height:14px; flex:none; }
+  .eyebrow .knot path{ stroke: var(--gold-text); }
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 14px 26px;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    cursor:pointer;
+    transition: background .25s ease, color .25s ease, border-color .25s ease, transform .2s ease;
+    white-space: nowrap;
+  }
+  .btn--primary{ background: var(--noir); color: var(--cream); }
+  .btn--primary:hover{ background: var(--gold-text); transform: translateY(-1px); }
+  .btn--ghost{ background: transparent; color: var(--ink); border-color: var(--ink); }
+  .btn--ghost:hover{ border-color: var(--gold-text); color: var(--gold-text); }
+  .btn--on-dark{ background: var(--gold); color: var(--noir); }
+  .btn--on-dark:hover{ background: var(--gold-light); }
+
+  /* ---------- header ---------- */
+  .site-header{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(246,241,231,0.86);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s ease, box-shadow .3s ease;
+  }
+  .site-header.is-scrolled{ border-color: var(--line); box-shadow: 0 6px 24px rgba(9,51,60,0.06); }
+  .site-header .wrap{ display:flex; align-items:center; justify-content:space-between; padding-top:16px; padding-bottom:16px; }
+
+  .logo{ display:flex; align-items:center; gap:12px; }
+  .logo__mark{ width:38px; height:38px; }
+  .logo__text{ display:flex; flex-direction:column; line-height:1.1; }
+  .logo__name{ font-family: var(--font-display); font-size:19px; letter-spacing:0.02em; font-weight:600; }
+  .logo__tag{ font-family: var(--font-mono); font-size:9.5px; letter-spacing:0.16em; color: var(--ink-muted); text-transform:uppercase; }
+
+  .nav{ display:flex; align-items:center; gap:34px; }
+  .nav__links{ display:flex; gap:30px; }
+  .nav__links a{ font-size:14px; position:relative; padding-bottom:4px; }
+  .nav__links a::after{
+    content:""; position:absolute; left:0; right:100%; bottom:0; height:1px; background: var(--gold-text);
+    transition: right .25s ease;
+  }
+  .nav__links a:hover::after{ right:0; }
+
+  .nav__toggle{ display:none; background:none; border:none; cursor:pointer; padding:6px; }
+  .nav__toggle span{ display:block; width:24px; height:1.5px; background:var(--ink); margin:5px 0; transition: transform .25s ease, opacity .25s ease; }
+
+  @media (max-width: 860px){
+    .nav__links, .nav .btn--primary{ display:none; }
+    .nav__toggle{ display:block; }
+    .nav{ gap:0; }
+
+    .mobile-menu{
+      position:fixed; inset:0; top:70px; background: var(--cream); z-index:49;
+      display:flex; flex-direction:column; padding: 30px 28px; gap:24px;
+      transform: translateY(-12px); opacity:0; pointer-events:none;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    .mobile-menu.is-open{ opacity:1; transform: translateY(0); pointer-events:auto; }
+    .mobile-menu a{ font-family: var(--font-display); font-size:24px; }
+    .mobile-menu .btn{ align-self:flex-start; margin-top:10px; }
+  }
+  @media (min-width: 861px){ .mobile-menu{ display:none; } }
+
+  /* ---------- marquee ---------- */
+  .marquee{
+    background: var(--noir); color: var(--cream-soft);
+    overflow:hidden; white-space:nowrap; border-bottom:1px solid var(--noir-soft);
+  }
+  .marquee__track{
+    display:inline-flex; align-items:center;
+    animation: marquee 32s linear infinite;
+    padding: 11px 0;
+  }
+  .marquee__track span{
+    font-family: var(--font-mono); font-size:12.5px; letter-spacing:0.12em; text-transform:uppercase;
+    padding: 0 22px; color: var(--gold-light);
+  }
+  .marquee__track span.dim{ color: var(--cream-soft); opacity:.7; }
+  @keyframes marquee{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding: 96px 0 110px; overflow:hidden; }
+  .hero::before{
+    content:""; position:absolute; inset:0; z-index:-1;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(182,134,60,0.14), transparent 70%);
+  }
+  .hero__inner{ text-align:center; max-width: 760px; margin:0 auto; }
+  .hero__eyebrow{ justify-content:center; }
+  .hero h1{
+    font-family: var(--font-display); font-weight:600;
+    font-size: clamp(48px, 9vw, 92px); letter-spacing:-0.01em; line-height:0.98;
+    color: var(--noir);
+  }
+  .hero__sub{
+    font-family: var(--font-display); font-style:italic; font-weight:400;
+    font-size: clamp(18px, 2.4vw, 24px); color: var(--gold-text);
+    margin: 18px 0 26px;
+  }
+  .hero__lede{ color: var(--ink-muted); font-size:16.5px; max-width:520px; margin:0 auto 40px; }
+  .hero__ctas{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+  .hero__frame{
+    margin: 70px auto 0; max-width: 920px; border: 1px solid var(--line);
+    padding: 28px; display:flex; gap: 0; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .hero__frame .knot{ width:120px; height:24px; }
+  .hero__frame .knot path{ stroke: var(--gold); }
+  .hero__frame::before, .hero__frame::after{
+    content:""; position:absolute; width:14px; height:14px; border: 1px solid var(--gold);
+  }
+  .hero__frame::before{ top:-1px; left:-1px; border-width:1px 0 0 1px; }
+  .hero__frame::after{ bottom:-1px; right:-1px; border-width:0 1px 1px 0; }
+
+  /* ---------- reveal ---------- */
+  .reveal{ opacity:0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.is-visible{ opacity:1; transform: translateY(0); }
+
+  /* ---------- section shell ---------- */
+  section{ padding: 100px 0; }
+  .section--soft{ background: var(--cream-soft); }
+  .section-head{ max-width: 620px; margin-bottom: 56px; }
+  .section-head h2{
+    font-family: var(--font-display); font-weight:600; font-size: clamp(32px,4vw,46px);
+    color: var(--noir); letter-spacing:-0.01em;
+  }
+
+  /* ---------- story ---------- */
+  .story{ display:grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items:center; }
+  .story__art{ display:flex; justify-content:center; }
+  .story__art svg{ width:100%; max-width:360px; }
+  .story p{ color: var(--ink-muted); margin-bottom: 18px; font-size:16px; }
+  .story p:last-of-type{ margin-bottom:0; }
+  .story__close{
+    font-family: var(--font-display); font-style:italic; color: var(--noir) !important;
+    font-size: 19px; margin-top:26px !important; padding-top:22px; border-top:1px solid var(--line);
+  }
+  @media (max-width: 860px){
+    .story{ grid-template-columns: 1fr; gap:40px; }
+    .story__art{ order:-1; }
+    .story__art svg{ max-width:240px; }
+  }
+
+  /* ---------- services ---------- */
+  .services__grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border:1px solid var(--line); }
+  .service{ background: var(--cream); padding: 34px 30px; min-height: 220px; display:flex; flex-direction:column; gap:14px; }
+  .service__icon{ width:30px; height:30px; }
+  .service__icon path, .service__icon circle, .service__icon line{ stroke: var(--gold-text); }
+  .service h3{ font-family: var(--font-display); font-size:19px; font-weight:600; color:var(--noir); }
+  .service p{ color: var(--ink-muted); font-size:14.5px; }
+  @media (max-width: 860px){ .services__grid{ grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px){ .services__grid{ grid-template-columns: 1fr; } }
+
+  /* ---------- new client ---------- */
+  .newclient{ background: var(--noir); color: var(--cream); }
+  .newclient .eyebrow{ color: var(--gold-light); }
+  .newclient .eyebrow .knot path{ stroke: var(--gold-light); }
+  .newclient__inner{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap:60px; align-items:start; }
+  .newclient h2{ font-family: var(--font-display); font-weight:600; font-size: clamp(30px,3.6vw,42px); margin-bottom:18px; }
+  .newclient p{ color: var(--cream-soft); opacity:.85; max-width: 480px; }
+  .newclient__call{
+    border: 1px solid var(--line-on-dark); padding: 30px; text-align:center;
+  }
+  .newclient__call .label{ font-family: var(--font-mono); font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color: var(--gold-light); margin-bottom:14px; }
+  .newclient__call .phone{ font-family: var(--font-display); font-size: clamp(26px,3.4vw,34px); display:block; margin-bottom:20px; }
+  @media (max-width: 860px){ .newclient__inner{ grid-template-columns: 1fr; gap:36px; } }
+
+  /* ---------- testimonials ---------- */
+  .testimonials__grid{ display:grid; grid-template-columns: repeat(2,1fr); gap: 40px; }
+  .ratingline{ font-family: var(--font-mono); font-size:13px; color: var(--ink-muted); margin-top:10px; letter-spacing:0.02em; }
+  .ratingline strong{ color: var(--noir); }
+  .ratingline a{ text-decoration: underline; text-underline-offset: 3px; color: var(--gold-text); }
+  .ratingline a:hover{ color: var(--noir); }
+  .testimonial{ display:flex; flex-direction:column; gap:18px; }
+  .testimonial .quotemark{ font-family: var(--font-display); font-size:50px; color: var(--gold); line-height:0.6; }
+  .testimonial p{ font-family: var(--font-display); font-size:17px; color: var(--noir); line-height:1.5; }
+  .testimonial cite{ font-family: var(--font-mono); font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color: var(--ink-muted); }
+  @media (max-width: 860px){ .testimonials__grid{ grid-template-columns:1fr; gap:46px; } }
+
+  /* ---------- pricing philosophy ---------- */
+  .pricing{ text-align:center; }
+  .pricing .section-head{ margin: 0 auto 30px; text-align:center; }
+  .pricing .eyebrow{ justify-content:center; }
+  .pricing__body{ max-width: 600px; margin: 0 auto; color: var(--ink-muted); font-size:16.5px; }
+  .pricelist{ text-align:left; max-width: 640px; margin: 50px auto 0; }
+  .pricelist__group{ margin-bottom: 34px; }
+  .pricelist__group:last-of-type{ margin-bottom: 0; }
+  .pricelist__group h3{
+    font-family: var(--font-display); font-weight:600; font-size:19px; color: var(--noir);
+    padding-bottom:10px; margin-bottom:14px; border-bottom:1px solid var(--line);
+  }
+  .pricelist__row{ display:flex; align-items:baseline; gap:10px; padding:7px 0; font-size:15px; }
+  .pricelist__row .name{ color: var(--ink); white-space:nowrap; }
+  .pricelist__row .dots{ flex:1 1 auto; border-bottom:1px dotted var(--ink-muted); opacity:.45; transform: translateY(-4px); }
+  .pricelist__row .price{ font-family: var(--font-mono); font-size:14px; color: var(--gold-text); white-space:nowrap; }
+  .pricelist__footnote{ font-size:13px; color: var(--ink-muted); margin-top:28px; font-style:italic; }
+  @media (max-width: 560px){
+    .pricelist__row .name{ white-space:normal; }
+  }
+
+  /* ---------- footer ---------- */
+  footer{ background: var(--noir); color: var(--cream); padding: 90px 0 0; }
+  .footer__top{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap:50px; padding-bottom:70px; border-bottom:1px solid var(--line-on-dark); }
+  .footer__brand .logo__name{ color: var(--cream); }
+  .footer__brand p{ color: var(--cream-soft); opacity:.75; margin-top:16px; max-width:280px; font-size:14.5px; }
+  .footer h4{ font-family: var(--font-mono); font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color: var(--gold-light); margin-bottom:18px; }
+  .footer address{ font-family: var(--font-mono); font-size:14px; line-height:1.8; color: var(--cream-soft); font-style:normal; }
+  .footer ul li{ margin-bottom:10px; font-size:14.5px; color: var(--cream-soft); }
+  .footer ul a:hover{ color: var(--gold-light); }
+  .footer__map{ border:1px solid var(--line-on-dark); filter: grayscale(0.3) sepia(0.15); }
+  .footer__map iframe{ width:100%; height:200px; border:0; display:block; }
+  .footer__bottom{ display:flex; justify-content:space-between; align-items:center; padding: 26px 0; gap:16px; flex-wrap:wrap; }
+  .footer__bottom p{ font-size:12.5px; color: var(--cream-soft); opacity:.6; }
+  .footer__bottom a{ opacity:.8; }
+  .footer__bottom a:hover{ color: var(--gold-light); opacity:1; }
+  @media (max-width: 860px){ .footer__top{ grid-template-columns:1fr; gap:40px; } }
+
+  /* ---------- mobile sticky CTA ---------- */
+  .mobile-cta{ display:none; }
+  @media (max-width: 760px){
+    .mobile-cta{
+      display:flex; position:fixed; bottom:0; left:0; right:0; z-index:60;
+      background: var(--noir); border-top:1px solid var(--line-on-dark);
+    }
+    .mobile-cta a{
+      flex:1; text-align:center; padding:15px 8px; font-family: var(--font-mono);
+      font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase; color: var(--cream);
+      display:flex; align-items:center; justify-content:center; gap:8px;
+    }
+    .mobile-cta a:first-child{ border-right:1px solid var(--line-on-dark); background: var(--gold); color:var(--noir); }
+    body{ padding-bottom: 56px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="wrap">
+    <a href="#" class="logo" aria-label="Agape Styling — početna">
+      <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="none" stroke="#8C6526" stroke-width="1"/>
+        <path d="M13 27 L20 12 L27 27 M16 22 H24" fill="none" stroke="#09333C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo__text">
+        <span class="logo__name">Agape Styling</span>
+        <span class="logo__tag">Frizerski salon · Čubura</span>
+      </span>
+    </a>
+
+    <nav class="nav">
+      <ul class="nav__links">
+        <li><a href="#prica">Naša priča</a></li>
+        <li><a href="#usluge">Usluge</a></li>
+        <li><a href="#cena">Cena</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+      <a href="#kontakt" class="btn btn--primary">Zakažite termin</a>
+      <button class="nav__toggle" id="navToggle" aria-label="Otvori meni" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#prica">Naša priča</a>
+    <a href="#usluge">Usluge</a>
+    <a href="#cena">Cena</a>
+    <a href="#kontakt">Kontakt</a>
+    <a href="#kontakt" class="btn btn--primary">Zakažite termin</a>
+  </div>
+</header>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>Zakažite termin</span><span class="dim">❖</span>
+    <span>Duga tradicija na Čuburi</span><span class="dim">❖</span>
+    <span>Agape Styling</span><span class="dim">❖</span>
+    <span>Negujemo lepotu generacijama</span><span class="dim">❖</span>
+    <span>Zakažite termin</span><span class="dim">❖</span>
+    <span>Duga tradicija na Čuburi</span><span class="dim">❖</span>
+    <span>Agape Styling</span><span class="dim">❖</span>
+    <span>Negujemo lepotu generacijama</span><span class="dim">❖</span>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero__inner">
+    <p class="eyebrow hero__eyebrow">
+      <svg class="knot" viewBox="0 0 60 24" aria-hidden="true"><path d="M2 12 C2 4,16 4,16 12 C16 20,30 20,30 12 C30 4,44 4,44 12 C44 20,58 20,58 12" fill="none" stroke-width="1.4"/></svg>
+      Dobrodošli u
+      <svg class="knot" viewBox="0 0 60 24" aria-hidden="true"><path d="M2 12 C2 4,16 4,16 12 C16 20,30 20,30 12 C30 4,44 4,44 12 C44 20,58 20,58 12" fill="none" stroke-width="1.4"/></svg>
+    </p>
+    <h1>Agape Styling</h1>
+    <p class="hero__sub">Frizerski salon sa dugom tradicijom na Čuburi</p>
+    <p class="hero__lede">Agape — na starogrčkom, bezuslovna ljubav. Tako brinemo o svakoj frizuri: pažljivo, bez žurbe, generaciju za generacijom.</p>
+    <div class="hero__ctas">
+      <a href="#kontakt" class="btn btn--primary">Zakažite termin</a>
+      <a href="tel:+381638669103" class="btn btn--ghost">Pozovite nas</a>
+    </div>
+
+    <div class="hero__frame">
+      <svg class="knot" viewBox="0 0 200 40" aria-hidden="true"><path d="M4 20 C4 6,30 6,30 20 C30 34,56 34,56 20 C56 6,82 6,82 20 C82 34,108 34,108 20 C108 6,134 6,134 20 C134 34,160 34,160 20 C160 6,186 6,186 20 C186 34,196 34,196 20" fill="none" stroke-width="1.2"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NAŠA PRIČA ============ -->
+<section id="prica">
+  <div class="wrap story reveal">
+    <div class="story__text">
+      <p class="eyebrow">
+        <svg class="knot" viewBox="0 0 60 24" aria-hidden="true"><path d="M2 12 C2 4,16 4,16 12 C16 20,30 20,30 12 C30 4,44 4,44 12 C44 20,58 20,58 12" fill="none" stroke-width="1.4"/></svg>
+        Naša priča
+      </p>
+      <h2 style="font-family:var(--font-display);font-weight:600;font-size:clamp(28px,3.6vw,40px);color:var(--noir);margin-bottom:24px;">Salon koji pamti vaše ime — i vašu frizuru</h2>
+      <p>Agape Styling se nalazi na Čuburi, jednom od najtoplijih beogradskih kvartova — tamo gde se ulice pamte po komšijama, a saloni po poverenju koje se gradi godinama.</p>
+      <p>Enterijer je miran i bez žurbe. Bilo da dolazite pre važnog izlaska ili samo da se osvežite posle radne nedelje, kod nas ćete se osećati kao kod kuće.</p>
+      <p>Naš tim spaja klasičnu frizersku veštinu sa savremenim trendovima. Verujemo da je zdrava kosa temelj dobre frizure, pa svaki tretman počinje razgovorom — ne makazama.</p>
+      <p class="story__close">Kod nas frizura nikad nije samo frizura.</p>
+    </div>
+    <div class="story__art">
+      <svg viewBox="0 0 320 400" aria-hidden="true">
+        <ellipse cx="160" cy="150" rx="92" ry="112" fill="none" stroke="#B6863C" stroke-width="1.4"/>
+        <ellipse cx="160" cy="150" rx="92" ry="112" fill="#ECE3D2" opacity="0.5"/>
+        <path d="M160 262 L160 320" stroke="#B6863C" stroke-width="1.4"/>
+        <path d="M132 320 H188" stroke="#B6863C" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M70 90 C40 130, 50 190, 90 230" fill="none" stroke="#09333C" stroke-width="1.1" stroke-linecap="round" opacity="0.55"/>
+        <path d="M250 90 C280 130, 270 190, 230 230" fill="none" stroke="#09333C" stroke-width="1.1" stroke-linecap="round" opacity="0.55"/>
+        <path d="M58 110 C30 150, 38 200, 70 235" fill="none" stroke="#09333C" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+        <path d="M262 110 C290 150, 282 200, 250 235" fill="none" stroke="#09333C" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+        <circle cx="160" cy="150" r="3" fill="#B6863C"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ USLUGE ============ -->
+<section id="usluge" class="section--soft">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">
+        <svg class="knot" viewBox="0 0 60 24" aria-hidden="true"><path d="M2 12 C2 4,16 4,16 12 C16 20,30 20,30 12 C30 4,44 4,44 12 C44 20,58 20,58 12" fill="none" stroke-width="1.4"/></svg>
+        Usluge
+      </p>
+      <h2>Šta radimo</h2>
+    </div>
+
+    <div class="services__grid reveal">
+      <div class="service">
+        <svg class="service__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.5" y2="14.5"/><line x1="8.5" y1="9.5" x2="20" y2="20"/></svg>
+        <h3>Žensko šišanje &amp; styling</h3>
+        <p>Od klasičnog karea do modernih talasa — šišanje prilagođeno obliku lica i vašem stilu života.</p>
+      </div>
+      <div class="service">
+        <svg class="service__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3c-3 3-5 6-5 9a5 5 0 0010 0c0-3-2-6-5-9z"/></svg>
+        <h3>Bojenje i farbanje</h3>
+        <p>Balayage, tonovi, prefarbavanje i nega boje — uz pažljivu zaštitu strukture kose.</p>
+      </div>
+      <div class="service">
+        <svg class="service__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="14" y2="18"/></svg>
+        <h3>Muško šišanje</h3>
+        <p>Klasično i moderno muško šišanje, prilagođeno obliku glave i vašem stilu.</p>
+      </div>
+      <div class="service">
+        <svg class="service__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12c2-5 14-5 16 0"/><path d="M4 12c2 5 14 5 16 0"/></svg>
+        <h3>Nega i tretmani kose</h3>
+        <p>Keratin, regeneracija i tretmani protiv oštećenja — kosa koja izgleda i oseća se zdravo.</p>
+      </div>
+      <div class="service">
+        <svg class="service__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4l2.5 5 5.5.8-4 4 1 5.5L12 16.8 6.9 19.3l1-5.5-4-4 5.5-.8z"/></svg>
+        <h3>Svečane &amp; mladenačke frizure</h3>
+        <p>Frizure za venčanja, mature i svečane prilike, uz probu pred sam dan.</p>
+      </div>
+      <div class="service">
+        <svg class="service__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M9 12h6M12 9v6"/></svg>
+        <h3>Konsultacije za nove klijente</h3>
+        <p>Ne znate šta želite? Sednite, ispričajte nam, a mi predlažemo rešenje koje vam odgovara.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRVI PUT KOD NAS ============ -->
+<section class="newclient">
+  <div class="wrap newclient__inner reveal">
+    <div>
+      <p class="eyebrow">
+        <svg class="knot" viewBox="0 0 60 24" aria-hidden="true"><path d="M2 12 C2 4,16 4,16 12 C16 20,30 20,30 12 C30 4,44 4,44 12 C44 20,58 20,58 12" fill="none" stroke-width="1.4"/></svg>
+        Prvi put kod nas?
+      </p>
+      <h2>Nema razloga za brigu</h2>
+      <p>Naš tim će vam pomoći da pronađete tretman koji odgovara vašem stilu i željama. Slobodno opišite šta vam ne odgovara na trenutnoj frizuri ili šta priželjkujete — taj put prelazimo zajedno.</p>
+    </div>
+    <div class="newclient__call">
+      <p class="label">Za sva pitanja, pozovite ili pišite na</p>
+      <a href="tel:+381638669103" class="phone">063 866 9103</a>
+      <a href="#kontakt" class="btn btn--on-dark">Pošaljite poruku</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ UTISCI ============ -->
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">
+        <svg class="knot" viewBox="0 0 60 24" aria-hidden="true"><path d="M2 12 C2 4,16 4,16 12 C16 20,30 20,30 12 C30 4,44 4,44 12 C44 20,58 20,58 12" fill="none" stroke-width="1.4"/></svg>
+        Utisci klijenata
+      </p>
+      <h2>Šta kažu naši klijenti</h2>
+      <p class="ratingline">★★★★★ <strong>5.0</strong> — ocena na Google mapi · <a href="https://www.google.com/maps/place/?q=place_id:ChIJ0XmEDkxxWkcR2LX8WESzLQQ" target="_blank" rel="noopener">pogledajte sve recenzije</a></p>
+    </div>
+
+    <div class="testimonials__grid reveal">
+      <div class="testimonial">
+        <span class="quotemark">”</span>
+        <p>Od srca preporuka! Došla sam zbog drugarice koja je kod ove frizerke dobila fantastičnu frizuru i nimalo se ne kajem. Sve pohvale, vraćam se sigurno.</p>
+        <cite>— Google recenzija</cite>
+      </div>
+      <div class="testimonial">
+        <span class="quotemark">”</span>
+        <p>Šišanje je za svaku pohvalu. Frizerka je prijatna, posvećena svakom klijentu i stvara opuštenu atmosferu.</p>
+        <cite>— Google recenzija</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FILOZOFIJA CENA ============ -->
+<section id="cena" class="pricing section--soft">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <p class="eyebrow">
+        <svg class="knot" viewBox="0 0 60 24" aria-hidden="true"><path d="M2 12 C2 4,16 4,16 12 C16 20,30 20,30 12 C30 4,44 4,44 12 C44 20,58 20,58 12" fill="none" stroke-width="1.4"/></svg>
+        Filozofija cena
+      </p>
+      <h2>Transparentno, bez iznenađenja</h2>
+    </div>
+    <p class="pricing__body">Cena svake usluge određuje se na konsultacijama — u zavisnosti od dužine, gustine i stanja kose. Pre svakog tretmana dobijate jasnu procenu, bez skrivenih troškova i bez žurbe.</p>
+
+    <div class="pricelist">
+      <div class="pricelist__group">
+        <h3>Žensko šišanje &amp; styling</h3>
+        <div class="pricelist__row"><span class="name">Šišanje — kraća kosa</span><span class="dots" aria-hidden="true"></span><span class="price">od 1.500 RSD</span></div>
+        <div class="pricelist__row"><span class="name">Šišanje — duža kosa</span><span class="dots" aria-hidden="true"></span><span class="price">od 2.000 RSD</span></div>
+        <div class="pricelist__row"><span class="name">Feniranje / styling</span><span class="dots" aria-hidden="true"></span><span class="price">od 1.200 RSD</span></div>
+      </div>
+
+      <div class="pricelist__group">
+        <h3>Bojenje i farbanje</h3>
+        <div class="pricelist__row"><span class="name">Farbanje u jednoj boji</span><span class="dots" aria-hidden="true"></span><span class="price">od 3.000 RSD</span></div>
+        <div class="pricelist__row"><span class="name">Pramenovi / Balayage</span><span class="dots" aria-hidden="true"></span><span class="price">od 5.500 RSD</span></div>
+        <div class="pricelist__row"><span class="name">Tonizacija</span><span class="dots" aria-hidden="true"></span><span class="price">od 1.800 RSD</span></div>
+      </div>
+
+      <div class="pricelist__group">
+        <h3>Muško šišanje</h3>
+        <div class="pricelist__row"><span class="name">Klasično muško šišanje</span><span class="dots" aria-hidden="true"></span><span class="price">1.200 RSD</span></div>
+        <div class="pricelist__row"><span class="name">Šišanje mašinicom</span><span class="dots" aria-hidden="true"></span><span class="price">900 RSD</span></div>
+      </div>
+
+      <div class="pricelist__group">
+        <h3>Nega i tretmani kose</h3>
+        <div class="pricelist__row"><span class="name">Keratin tretman</span><span class="dots" aria-hidden="true"></span><span class="price">od 4.000 RSD</span></div>
+        <div class="pricelist__row"><span class="name">Regeneracija / maska</span><span class="dots" aria-hidden="true"></span><span class="price">od 1.500 RSD</span></div>
+      </div>
+
+      <div class="pricelist__group">
+        <h3>Svečane &amp; mladenačke frizure</h3>
+        <div class="pricelist__row"><span class="name">Svečana frizura</span><span class="dots" aria-hidden="true"></span><span class="price">od 4.500 RSD</span></div>
+        <div class="pricelist__row"><span class="name">Proba frizure</span><span class="dots" aria-hidden="true"></span><span class="price">od 2.000 RSD</span></div>
+      </div>
+
+      <p class="pricelist__footnote">* Konačna cena zavisi od dužine, gustine i stanja kose i utvrđuje se na konsultaciji.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KONTAKT / FOOTER ============ -->
+<footer id="kontakt">
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <span class="logo__name" style="font-family:var(--font-display);font-size:20px;font-weight:600;">Agape Styling</span>
+        <p>Frizerski salon sa dugom tradicijom na Čuburi/Vračaru. Negujemo lepotu i poverenje, generaciju za generacijom.</p>
+      </div>
+      <div>
+        <h4>Posetite nas</h4>
+        <address>Agape Styling<br>Maksima Gorkog 41<br>11000 Beograd, Srbija</address>
+      </div>
+      <div>
+        <h4>Radno vreme</h4>
+        <ul>
+          <li>Pon — Sub: 10:00 – 20:00</li>
+          <li>Nedelja: zatvoreno</li>
+        </ul>
+        <h4 style="margin-top:26px;">Kontakt</h4>
+        <ul>
+          <li><a href="tel:+381638669103">063 866 9103</a></li>
+          <li><a href="https://instagram.com/agapestyling" target="_blank" rel="noopener">@agapestyling</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__map reveal">
+      <iframe src="https://maps.google.com/maps?q=Maksima+Gorkog+41,+Beograd&t=&z=15&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Lokacija — Maksima Gorkog 41, Beograd"></iframe>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© 2026 Agape Styling. Sva prava zadržana.</p>
+      <p><a href="https://rondo.rs" target="_blank" rel="noopener">Sajt izradio Rondo</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ MOBILE STICKY CTA ============ -->
+<div class="mobile-cta">
+  <a href="tel:+381638669103">📞 Pozovite</a>
+  <a href="viber://chat?number=%2B381638669103">💬 Viber</a>
+</div>
+
+<script>
+  // header shadow on scroll
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('is-scrolled', window.scrollY > 8);
+  });
+
+  // mobile menu
+  const navToggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  navToggle.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('is-open');
+    navToggle.setAttribute('aria-expanded', open);
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.remove('is-open');
+    navToggle.setAttribute('aria-expanded', false);
+  }));
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  }
+</script>
+
+</body>
+</html>
